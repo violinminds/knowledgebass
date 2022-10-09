@@ -70,3 +70,14 @@ Help make mass surveillance of entire populations uneconomical! We all have a ri
   <br><br>
   <img src="https://user-images.githubusercontent.com/18366087/191384187-c59da29b-eded-4346-8e42-637a47e1e75b.png">
 </details>
+
+
+## [Secure Messaging Apps Comparison]([https://www.thinkprivacy.ch/](https://www.securemessagingapps.com/))
+> Categories: [apps recommendations](https://www.securemessagingapps.com/)
+
+"Government is not the solution to our problem; government is the problem"
+
+<details>
+  <summary>Screenshots</summary>
+  <img src="https://user-images.githubusercontent.com/18366087/194750677-fb7306df-bd4c-4123-85b1-b4e6a476f434.png">
+</details>
