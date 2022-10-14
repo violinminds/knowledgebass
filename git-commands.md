@@ -3,8 +3,8 @@
 ### Delete all tags except one
 Delete all tags except "2.2.1":
 ```
-git tag -d $(git tag | grep -v '2.2.1') # delete locally
 git push origin -d $(git tag -l | grep -v '2.2.1') # delete remotely
+git tag -d $(git tag | grep -v '2.2.1') # delete locally
 ```
 
 
@@ -14,6 +14,6 @@ git push origin -d $(git tag -l | grep -v '2.2.1') # delete remotely
 
 Delete all tags with prefix "1.0":
 ```
-git tag -d $(git tag -l "v1.0*") # delete locally
 git push origin -d $(git tag -l "v1.0*") # delete remotely
+git tag -d $(git tag -l "v1.0*") # delete locally
 ```
