@@ -1,16 +1,18 @@
 # Setup
+
 > https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui
 
 Setup procedure for OpenSSH client/server on Windows 10/11.
 
-
 ## client side
+
 ```powershell
 # Install the OpenSSH Client
 Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
 ```
 
 ## server side
+
 ```powershell
 # Install the OpenSSH Server
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
@@ -30,18 +32,22 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 }
 ```
 
-
 # Key based authentication
+
 > https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement
 
 ## client side
+
 > REMEMBER TO SET PASSPHRASE!
+
 ```powershell
 ssh-keygen
 ```
 
 ## server side
+
 > REMEMBER TO UPDATE VARIABLES!
+
 ```powershell
 $username = "user"
 $hostname = "remote.violinminds.com"
