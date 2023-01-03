@@ -13,7 +13,7 @@ xdebug.remote_enable = 1
 xdebug.remote_autostart = 1
 ```
 ### `php.ini` in older php versions (<=5.x)
-`zend_extension=xdebug` won't work, you have to point to the dll. You have two options:
+`zend_extension=xdebug` won't work, you have to point to the dll. You have some options:
 - use a path relative to the php binary:
   ```ini
   zend_extension=./ext/php_xdebug.dll
