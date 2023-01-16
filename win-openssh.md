@@ -39,7 +39,7 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 ## Generate key for client
 
 - "comment" = comment for user friendly listing via `ssh-add -l` and/or use with git (see below)
-- "filepath" = path to key file (eg. in powershell, `$env:USERPROFILE\.ssh\github-signing`)
+- "filepath" = path to key file (eg. in powershell, `$env:USERPROFILE\.ssh\my-key`)
 
 > REMEMBER TO SET PASSPHRASE TO THE KEY FILE!!!
 
@@ -61,7 +61,7 @@ ssh-keygen -C comment -f filepath
 Execute this script on the client, after adjusting the variables values.
 
 ```powershell
-$publicKeyPath = "$env:USERPROFILE\.ssh\github-signing.pub"
+$publicKeyPath = "$env:USERPROFILE\.ssh\my-key.pub"
 $serverUsername = "user"
 $serverHostname = "remote.violinminds.com"
 $serverPort = "22"
@@ -87,6 +87,7 @@ ssh ${serverUsername}@${serverHostname} -p${serverPort} $remotePowershell
 ### Common setup
 
 0. !!! When installing [git for windows](https://gitforwindows.org/), remember to select "Use external OpenSSH" !!!
+   ![image](https://user-images.githubusercontent.com/18366087/212734447-56f811dd-6bdd-46c4-bc10-8032b7ef2387.png)
 1. create keys for the client (see above)
    - for authentication, create a key with comment **containing** "github-auth", eg. in powershell `ssh-keygen -C github-auth -f "$env:USERPROFILE\.ssh\github-auth"`
    - for signing, create a key with comment **containing** "github-signing", eg. in powershell `ssh-keygen -C github-signing -f "$env:USERPROFILE\.ssh\github-signing"`
@@ -98,7 +99,7 @@ ssh ${serverUsername}@${serverHostname} -p${serverPort} $remotePowershell
 
 Test auth via: `ssh -T git@github.com`, it should print: "Hi _username_! You've successfully authenticated, but GitHub does not provide shell access.".
 
-Now you should be able to clone a repository via: `git clone git@github.com:violinminds/knowledgebass.git` (get link in the repository page on Github by clicking the "<> Code" button and and selecting "SSH" in the clone section)
+Now you should be able to clone a repository via: `git clone git@github.com:violinminds/knowledgebass.git` (get link in the repository page on Github by clicking the "<> Code" button and and selecting "SSH" in the clone section).
 
 ### Commits signing
 
