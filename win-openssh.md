@@ -102,6 +102,10 @@ If that's not the case and you get the error "git@github.com: Permission denied 
 
 Now you should be able to clone a repository via: `git clone git@github.com:violinminds/knowledgebass.git` (get link in the repository page on Github by clicking the "<> Code" button and and selecting "SSH" in the clone section).
 
+#### Visual Studio Code config
+
+To configure vscode to use SSH instead of HTTPS, add `"github.gitProtocol": "ssh", "remoteHub.gitProtocol": "ssh"` to your settings.json file.
+
 ### Commits signing
 
 Configure git to **always** sign **Github** commits with your ssh key identified by the comment containing "git-signing" (run all commands in powershell):
@@ -138,6 +142,10 @@ Configure git to **always** sign **Github** commits with your ssh key identified
     ```
 
 Now you can commit as usual, or by explicitly signing the commit via the `-S` parameter (`git commit -S -m "message"`); commits will always be forcefully signed.
+
+#### Visual Studio Code config
+
+If you want to be sure to enforce commit signing in vscode, add `"git.enableCommitSigning": true` to your settings.json file.
 
 ## Troubleshooting tips
 
