@@ -138,6 +138,33 @@ Now you can commit as usual, or by explicitly signing the commit via the `-S` pa
 
 If you want to be sure to enforce commit signing in vscode, add `"git.enableCommitSigning": true` to your settings.json file.
 
+### Enforce SSH transport protocol for git
+
+To disallow any transport protocol **except** SSH (recommended for consistency), run:
+
+```powershell
+git config --global protocol.http.allow never
+git config --global protocol.https.allow never
+git config --global protocol.git.allow never
+git config --global protocol.file.allow never
+git config --global protocol.ssh.allow always
+```
+
+Or manually add the following to your ".gitconfig":
+
+```ini
+[protocol "http"]
+    allow = never
+[protocol "https"]
+    allow = never
+[protocol "git"]
+    allow = never
+[protocol "file"]
+    allow = never
+[protocol "ssh"]
+    allow = always
+```
+
 ## Troubleshooting tips
 
 - verify that git is also loading the Github config file, by running `git config -l --show-origin` in a Github working copy
