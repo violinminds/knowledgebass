@@ -118,28 +118,19 @@ Configure git to **always** sign **Github** commits with your ssh key identified
 
   > If you did **not** select "Use external OpenSSH" during the git installation, you should try to replace "ssh-add" with "C:/Windows/System32/OpenSSH/ssh-add.exe"(**NOT** guaranteed to work)
 
-- this should be the result in the following...
+- this should be the result in the following ".gitconfig" file (`$env:USERPROFILE/.gitconfig`):
 
-  - ".gitconfig" file (`$env:USERPROFILE/.gitconfig`):
-
-    ```ini
-    # ... rest of the config ...
-    [includeIf "hasconfig:remote.*.url:git@github.com**/**"]
-        path = .github.gitconfig
-    ```
-
-  - ".github.gitconfig" file (`$env:USERPROFILE/.github.gitconfig`):
-
-    ```ini
-    [gpg]
-        format = ssh
-    [commit]
-        gpgsign = true
-    [tag]
-        gpgsign = true
-    [gpg "ssh"]
-        defaultKeyCommand = cmd /c ssh-add -L | findstr git-signing
-    ```
+  ```ini
+  # ... rest of the config ...
+  [gpg]
+      format = ssh
+  [commit]
+      gpgsign = true
+  [tag]
+      gpgsign = true
+  [gpg "ssh"]
+      defaultKeyCommand = cmd /c ssh-add -L | findstr git-signing
+  ```
 
 Now you can commit as usual, or by explicitly signing the commit via the `-S` parameter (`git commit -S -m "message"`); commits will always be forcefully signed.
 
