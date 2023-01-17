@@ -89,8 +89,8 @@ ssh ${serverUsername}@${serverHostname} -p${serverPort} $remotePowershell
 0. !!! When installing [git for windows](https://gitforwindows.org/), remember to select "Use external OpenSSH" !!!
    ![image](https://user-images.githubusercontent.com/18366087/212734447-56f811dd-6bdd-46c4-bc10-8032b7ef2387.png)
 1. create keys for the client (see above)
-   - for authentication, create a key with comment **containing** "github-auth", eg. in powershell `ssh-keygen -C github-auth -f "$env:USERPROFILE\.ssh\github-auth"`
-   - for signing, create a key with comment **containing** "github-signing", eg. in powershell `ssh-keygen -C github-signing -f "$env:USERPROFILE\.ssh\github-signing"`
+   - for authentication, create a key with comment **containing** "git-auth", eg. in powershell `ssh-keygen -C git-auth -f "$env:USERPROFILE\.ssh\git-auth"`
+   - for signing, create a key with comment **containing** "git-signing", eg. in powershell `ssh-keygen -C git-signing -f "$env:USERPROFILE\.ssh\git-signing"`
 2. add keys to your profile @ https://github.com/settings/keys (copy-paste both the public keys contents)
 
 ### Authentication (cloning / pulling / pushing / etc)
@@ -104,13 +104,13 @@ Now you should be able to clone a repository via: `git clone git@github.com:viol
 
 ### Commits signing
 
-Configure git to **always** sign **Github** commits with your ssh key identified by the comment containing "github-signing", via a custom config file (`$env:USERPROFILE/.github.gitconfig`) (run all commands in powershell):
+Configure git to **always** sign **Github** commits with your ssh key identified by the comment containing "git-signing" (run all commands in powershell):
 
-- use custom config file for host "git@github.com": `git config --global "includeIf.hasconfig:remote.*.url:git@github.com**/**.path" .github.gitconfig`
-- instruct git to use ssh instead of gpg: `git config --file $env:USERPROFILE/.github.gitconfig gpg.format ssh`
-- force signing of all commits: `git config --file $env:USERPROFILE/.github.gitconfig commit.gpgsign true`
-- force signing of all tags: `git config --file $env:USERPROFILE/.github.gitconfig tag.gpgsign true`
-- command to retrieve public key from agent: `git config --file $env:USERPROFILE/.github.gitconfig gpg.ssh.defaultKeyCommand "cmd /c ssh-add -L | findstr github-signing"`
+- OPTIONAL (**not** recommended): if you want, you can use a custom config file **only** for host "git@github.com": `git config --global "includeIf.hasconfig:remote.*.url:git@github.com**/**.path" .github.gitconfig`. If you do so, run the following commands replacing `--global` with `--file $env:USERPROFILE/.github.gitconfig`. PLEASE NOTE: if you do so, commits will be signed **only** after the "git@github.com" remote has been added, so initializing new repositories and immediately committing to them will create non-signed commits!
+- instruct git to use ssh instead of gpg: `git config --global gpg.format ssh`
+- force signing of all commits: `git config --global commit.gpgsign true`
+- force signing of all tags: `git config --global tag.gpgsign true`
+- command to retrieve public key from agent: `git config --global gpg.ssh.defaultKeyCommand "cmd /c ssh-add -L | findstr git-signing"`
 
   > If you did **not** select "Use external OpenSSH" during the git installation, you should try to replace "ssh-add" with "C:/Windows/System32/OpenSSH/ssh-add.exe"(**NOT** guaranteed to work)
 
@@ -134,7 +134,7 @@ Configure git to **always** sign **Github** commits with your ssh key identified
     [tag]
         gpgsign = true
     [gpg "ssh"]
-        defaultKeyCommand = cmd /c ssh-add -L | findstr github-signing
+        defaultKeyCommand = cmd /c ssh-add -L | findstr git-signing
     ```
 
 Now you can commit as usual, or by explicitly signing the commit via the `-S` parameter (`git commit -S -m "message"`); commits will always be forcefully signed.
@@ -147,8 +147,8 @@ Now you can commit as usual, or by explicitly signing the commit via the `-S` pa
 - if you get an error, eg. "Permission denied (publickey). fatal: Could not read from remote repository.", to debug, you can set the `sshCommand` in the git config to be more verbose: `git config --global core.sshcommand ssh -v` (use `-vvv` to be even more verbose)
   - a possible problem might be that, for some reason, ssh is not using the agent's keys. In the verbose debug log, ssh reports a list of the keys it tries to use when connecting to an ssh host, which should also include the agent's keys. If the agent keys are missing, see the following Troubleshooting tips. Example of correct debug log:
   ```ini
-    debug1: Will attempt key: github-auth RSA SHA256:yyyyyyyyyyyyyyyyyyyyyyyyyyyy agent
-    debug1: Will attempt key: github-signing RSA SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxx agent
+    debug1: Will attempt key: git-auth RSA SHA256:yyyyyyyyyyyyyyyyyyyyyyyyyyyy agent
+    debug1: Will attempt key: git-signing RSA SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxx agent
     debug1: Will attempt key: C:\\Users\\username/.ssh/id_dsa
     debug1: Will attempt key: C:\\Users\\username/.ssh/id_ecdsa
     debug1: Will attempt key: C:\\Users\\username/.ssh/id_ecdsa_sk
