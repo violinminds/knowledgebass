@@ -198,20 +198,7 @@ git config --global protocol.file.allow never
 git config --global protocol.ssh.allow always
 ```
 
-Or manually add the following to your ".gitconfig":
-
-```ini
-[protocol "http"]
-    allow = never
-[protocol "https"]
-    allow = never
-[protocol "git"]
-    allow = never
-[protocol "file"]
-    allow = never
-[protocol "ssh"]
-    allow = always
-```
+Please note: some platforms (eg. Heroku) allow access only via a single protocol (eg. HTTPS). For those repositories, you have to allow the protocol you need: `git config protocol.https.allow always`. You will never be able to do a "clone" operation; instead, you will have to init an empty repository, run the aforementioned config command, add the remote, then checkout the branch you need with `git checkout -b`. You could create a git alias to simply this procedure.
 
 ## Troubleshooting tips
 
