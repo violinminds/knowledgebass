@@ -136,11 +136,13 @@ Now you can commit as usual, or by explicitly signing the commit via the `-S` pa
 
 #### Signature verification
 
-You can (and should) verify wether your commits have been correctly signed or not.
+You can (and should) verify whether your commits have been correctly signed or not.
 
 ##### On Github
 
-Open the repository commits history (`<repo url>/commits`). If a commit is signed correctly with your registered signing key, you will see a green "Verified" label for the commit.
+Open the repository commits history (`<repo url>/commits`, eg. https://github.com/aetonsi/pwsh__Utils/commits/). If a commit is signed correctly with your registered signing key, you will see a green "Verified" label for the commit:
+![image](https://user-images.githubusercontent.com/18366087/213741833-1ea2a8d5-4987-4df5-a4cd-8912ec49e199.png)
+
 
 ##### Locally
 
