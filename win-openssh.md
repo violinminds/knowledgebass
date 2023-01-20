@@ -143,7 +143,6 @@ You can (and should) verify whether your commits have been correctly signed or n
 Open the repository commits history (`<repo url>/commits`, eg. https://github.com/aetonsi/pwsh__Utils/commits/). If a commit is signed correctly with your registered signing key, you will see a green "Verified" label for the commit:
 ![image](https://user-images.githubusercontent.com/18366087/213741833-1ea2a8d5-4987-4df5-a4cd-8912ec49e199.png)
 
-
 ##### Locally
 
 Run: `git log --show-signature`. You will see that the commits appear as unverified and you will get an error:
@@ -200,7 +199,13 @@ git config --global protocol.file.allow never
 git config --global protocol.ssh.allow always
 ```
 
-Please note: some platforms (eg. Heroku) allow access only via a single protocol (eg. HTTPS). For those repositories, you have to allow the protocol you need: `git config protocol.https.allow always`. You will never be able to do a "clone" operation; instead, you will have to init an empty repository, run the aforementioned config command, add the remote, then checkout the branch you need with `git checkout -b`. You could create a git alias to simply this procedure.
+Please note: some platforms (eg. Heroku) allow access only via a single protocol (eg. HTTPS). For those repositories, you have to allow the protocol you need: `git config protocol.https.allow always`. You will never be able to do a "clone" operation; instead, you will have to init an empty repository, run the aforementioned config command, add the remote, fetch, then checkout the branch you need with `git checkout -b`. You could create a git alias to simply this procedure, for example (powershell):
+
+```powershell
+git config --global alias.clone-https "!f() { newdir=`"`$(basename `"`$1`")`" ; mkdir `"`$newdir`" ; cd `"`$newdir`" ; git init ; git config protocol.https.allow always ; git remote add origin `"`$1`" ; git fetch ; git checkout -b master origin/master ; }; f"
+# then you can run:
+git clone-https https://git.heroku.com/your-heroku-repo.git
+```
 
 ## Troubleshooting tips
 
