@@ -134,6 +134,54 @@ Configure git to **always** sign **Github** commits with your ssh key identified
 
 Now you can commit as usual, or by explicitly signing the commit via the `-S` parameter (`git commit -S -m "message"`); commits will always be forcefully signed.
 
+#### Signature verification
+
+You can (and should) verify wether your commits have been correctly signed or not.
+
+##### On Github
+
+Open the repository commits history (`<repo url>/commits`). If a commit is signed correctly with your registered signing key, you will see a green "Verified" label for the commit.
+
+##### Locally
+
+Run: `git log --show-signature`. You will see that the commits appear as unverified and you will get an error:
+
+```log
+error: gpg.ssh.allowedSignersFile needs to be configured and exist for ssh signature verification
+commit 605862b7c393385266419b46f2409a5e019391c2 (HEAD -> master, origin/master)
+No signature
+Author: aetonsi <18366087+aetonsi@users.noreply.github.com>
+Date:   Fri Jan 20 15:24:25 2023 +0100
+
+    add util confirm
+error: gpg.ssh.allowedSignersFile needs to be configured and exist for ssh signature verification
+
+...
+```
+
+Just as Github knows a signature is valid by checking in its list of authorized keys, you also have to make a list of authorized keys for your local git installation. To do so, run the following commands (powershell):
+
+```powershell
+git config --global gpg.ssh.allowedSignersFile "$env:USERPROFILE\.ssh\allowed_signers"
+
+echo "$(git config --get user.email) $(type $env:USERPROFILE\.ssh\git-signing.pub)" >> "$env:USERPROFILE\.ssh\allowed_signers"
+```
+
+The file structure is simple: it simply contains a list of `<email> <public key>` rows, each one representing an authorized user.
+
+Then you can verify your commits' signatures again and you will get "Good git signature for ...":
+
+```log
+commit 605862b7c393385266419b46f2409a5e019391c2 (HEAD -> master, origin/master)
+Good "git" signature for 18366087+aetonsi@users.noreply.github.com with RSA key SHA256:5GiMEA805OT3GRyPCR+OJqiiPFvDomh7Kr3NGFUeSxI
+Author: aetonsi <18366087+aetonsi@users.noreply.github.com>
+Date:   Fri Jan 20 15:24:25 2023 +0100
+
+    add util confirm
+
+...
+```
+
 #### Visual Studio Code config
 
 If you want to be sure to enforce commit signing in vscode, add `"git.enableCommitSigning": true` to your settings.json file.
