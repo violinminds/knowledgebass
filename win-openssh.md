@@ -95,12 +95,14 @@ ssh ${serverUsername}@${serverHostname} -p${serverPort} $remotePowershell
 
 ### Authentication (cloning / pulling / pushing / etc)
 
-> If you did **not** select "Use external OpenSSH" during the git installation, run: `git config --global core.sshcommand C:/Windows/System32/OpenSSH/ssh.exe` (**NOT** guaranteed to work)
-
 Test auth via: `ssh -T git@github.com`, it should print: "Hi _username_! You've successfully authenticated, but GitHub does not provide shell access.".
 If that's not the case and you get the error "git@github.com: Permission denied (publickey).", debug with the `-v` or `-vvv` switches ("verbose"): `ssh -vvvT git@github.com`. See the Troubleshooting section for more help.
 
 Now you should be able to clone a repository via: `git clone git@github.com:violinminds/knowledgebass.git` (get link in the repository page on Github by clicking the "<> Code" button and and selecting "SSH" in the clone section).
+
+#### Visual Studio config
+
+Thanks to the global git settings, Visual Studio should be already working correctly.
 
 #### Visual Studio Code config
 
@@ -110,29 +112,14 @@ To configure vscode to use SSH instead of HTTPS, add `"github.gitProtocol": "ssh
 
 Configure git to **always** sign **Github** commits with your ssh key identified by the comment containing "git-signing" (run all commands in powershell):
 
-- OPTIONAL (**not** recommended): if you want, you can use a custom config file **only** for host "git@github.com": `git config --global "includeIf.hasconfig:remote.*.url:git@github.com**/**.path" .github.gitconfig`. If you do so, run the following commands replacing `--global` with `--file $env:USERPROFILE/.github.gitconfig`. PLEASE NOTE: if you do so, commits will be signed **only** after the "git@github.com" remote has been added, so initializing new repositories and immediately committing to them will create non-signed commits!
+> OPTIONAL (**not** recommended): if you want, you can use a custom config file **only** for host "git@github.com": `git config --global "includeIf.hasconfig:remote.*.url:git@github.com**/**.path" .github.gitconfig`. If you do so, run the following commands replacing `--global` with `--file $env:USERPROFILE/.github.gitconfig`. PLEASE NOTE: if you do so, commits will be signed **only** after the "git@github.com" remote has been added, so initializing new repositories and immediately committing to them will create non-signed commits!
+
 - instruct git to use ssh instead of gpg: `git config --global gpg.format ssh`
 - force signing of all commits: `git config --global commit.gpgsign true`
 - force signing of all tags: `git config --global tag.gpgsign true`
-- command to retrieve public key from agent: `git config --global gpg.ssh.defaultKeyCommand "cmd /c ssh-add -L | findstr git-signing"`
+- command to retrieve public key from agent: `git config --global gpg.ssh.defaultKeyCommand 'cmd /c "C:\\Windows\\System32\\OpenSSH\\ssh-add.exe" -L | findstr git-signing'`
 
-  > If you did **not** select "Use external OpenSSH" during the git installation, you should try to replace "ssh-add" with "C:/Windows/System32/OpenSSH/ssh-add.exe"(**NOT** guaranteed to work)
-
-- this should be the result in the following ".gitconfig" file (`$env:USERPROFILE/.gitconfig`):
-
-  ```ini
-  # ... rest of the config ...
-  [gpg]
-      format = ssh
-  [commit]
-      gpgsign = true
-  [tag]
-      gpgsign = true
-  [gpg "ssh"]
-      defaultKeyCommand = cmd /c ssh-add -L | findstr git-signing
-  ```
-
-Now you can commit as usual, or by explicitly signing the commit via the `-S` parameter (`git commit -S -m "message"`); commits will always be forcefully signed.
+Now you can commit as usual, or by explicitly signing the commit via the `-S` parameter (`git commit -S -m "message"`); commits will always be signed by default.
 
 #### Signature verification
 
@@ -183,6 +170,10 @@ Date:   Fri Jan 20 15:24:25 2023 +0100
 ...
 ```
 
+#### Visual Studio config
+
+Thanks to the global git settings (`gpg.ssh.defaultKeyCommand` and `core.sshCommand` in particular), Visual Studio should be already working correctly.
+
 #### Visual Studio Code config
 
 If you want to be sure to enforce commit signing in vscode, add `"git.enableCommitSigning": true` to your settings.json file.
@@ -212,7 +203,7 @@ git clone-https https://git.heroku.com/your-heroku-repo.git
 - verify that git is also loading the Github config file, by running `git config -l --show-origin` in a Github working copy
 - if you get the warning "@ WARNING: UNPROTECTED PRIVATE KEY FILE! @" when trying to use the keys, fix the private key(s) file(s) permissions to allow FULL CONTROL to the current user, `SYSTEM` and the `Administrators` group
 - if a repository was already cloned via HTTPS and you want to start working via SSH, change its remote via: `git remote set-url origin git@github.com:violinminds/knowledgebass.git`. To verify the current remotes, run: `git remote -v`
-- if you get an error, eg. "Permission denied (publickey). fatal: Could not read from remote repository.", to debug, you can set the `sshCommand` in the git config to be more verbose: `git config --global core.sshcommand ssh -v` (use `-vvv` to be even more verbose)
+- if you get an error, eg. "Permission denied (publickey). fatal: Could not read from remote repository.", to debug, you can add the `-v` switch to `core.sshCommand` setting in the git config to be more verbose (use `-vvv` to be even more verbose)
   - a possible problem might be that, for some reason, ssh is not using the agent's keys. In the verbose debug log, ssh reports a list of the keys it tries to use when connecting to an ssh host, which should also include the agent's keys. If the agent keys are missing, see the following Troubleshooting tips. Example of correct debug log:
   ```ini
     debug1: Will attempt key: git-auth RSA SHA256:yyyyyyyyyyyyyyyyyyyyyyyyyyyy agent
@@ -224,5 +215,5 @@ git clone-https https://git.heroku.com/your-heroku-repo.git
     debug1: Will attempt key: C:\\Users\\username/.ssh/id_ed25519_sk
     debug1: Will attempt key: C:\\Users\\username/.ssh/id_xmss
   ```
-- if by debugging with `core.sshCommand ssh -v` or simply by trying the authentication with `ssh -vT git@github.com` you see that ssh is not trying the agent's keys, it might be that the agent service is not running. Start it via `sc start ssh-agent` and try again
+- if by debugging with a verbose `core.sshCommand` or simply by trying the authentication with `ssh -vT git@github.com` you see that ssh is not trying the agent's keys, it might be that the agent service is not running. Start it via `sc start ssh-agent` and try again
   - If the agent is running but the problem is still present, it might be that git is not using the system's OpenSSH suite. This might happen if you didn't select "Use external OpenSSH" during git setup. To verify this, you can either set `core.sshCommand` to `where.exe ssh > ~/sshlocation.txt && notepad ~/sshlocation.txt && rm ~/sshlocation.txt` then run a git command again (eg. git clone), or you can to run `which ssh` in git Bash; both are ways to determine which ssh binary git is trying to run. If it's not the OpenSSH binary (located in C:/WINDOWS/System32/OpenSSH), fix your `PATH` environment variable. If git is using its internal ssh (C:\Program Files\Git\usr\bin), reinstall git for windows and select "Use external OpenSSH"
