@@ -1,5 +1,5 @@
 # PHP knowledge
 
-Notions that a php programmer should have.
+Useful notions for php developers.
 
-- [VS Code settings for Xdebug](vscode-xdebug-settings.md)
+- [Settings for Xdebug](xdebug-settings.md)
