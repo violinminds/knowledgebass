@@ -5,6 +5,7 @@
 ```ini
 [Xdebug]
 zend_extension=xdebug
+xdebug.log=PHP_BINARY"/../xdebug_errors.log" ; WINDOWS ONLY - see php-ini.md for explanation
 ; xdebug 3.x
 xdebug.mode=debug
 xdebug.start_with_request=yes

@@ -2,4 +2,5 @@
 
 Useful notions for php developers.
 
-- [Settings for Xdebug](xdebug-settings.md)
+- [`php.ini` settings](php-ini.md)
+- [Xdebug settings](xdebug-settings.md)
