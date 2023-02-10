@@ -1,6 +1,7 @@
-# win-openssh.md
+# OpenSSH for Windows
 
-> https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui
+> - https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui
+> - https://github.com/PowerShell/Win32-OpenSSH
 
 Setup procedure for using OpenSSH client/server on Windows.
 
