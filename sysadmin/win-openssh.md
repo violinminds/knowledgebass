@@ -83,6 +83,12 @@ ssh ${serverUsername}@${serverHostname} -p${serverPort} $remotePowershell
 2. add **every** key to the agent, one by one, via `ssh-add`; eg. in powershell: `ssh-add $env:USERPROFILE\.ssh\my-key` (private keys don't have ".pub" extension) (passphrase will be required)
 3. list added keys via: `ssh-add -l`
 
+## Test connection
+
+Test connection via `ssh -T <ssh-host>` (replace "ssh-host" with your server's ip or URI).
+
+If you wish you can add a welcome banner to the server so that you see a custom message every time you log onto it. Just edit the server's config (`c:\ProgramData\ssh\sshd_config` on the server's filesystem) and add/uncomment the `Banner` line specifying a path to a text file (eg. `Banner c:\my_sshd_banner.txt`). Then restart the ssh server to apply the new setting, and test the connection again; you will see your banner upon connecting.
+
 ## Github setup
 
 ### Common setup
