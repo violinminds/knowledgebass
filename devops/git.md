@@ -7,6 +7,16 @@
 
 ## Commands
 
+- ### List all NON-pushed commits
+
+```powershell
+  # simple list
+  git log --branches --not --remotes --oneline
+
+  # detailed list
+  git log --branches --not --remotes --show-signature
+```
+
 - ### Delete all tags except one
 
   Example: delete all tags except "2.2.1":
