@@ -9,6 +9,7 @@ Concepts that a programmer should have knowledge of.
 ## Web development
 
 - [php knowledge](php)
+- [powershell knowledge](powershell)
 
 ## Desktop development
 
