@@ -24,13 +24,24 @@ PS> query session
     rdp-tcp                                 65536  Listen
 ```
 
-### Terminate a Logon session
+### Terminate a logon session
 
-Disconnects the user and Terminates the logon session.
+To completely terminate a logon session:
 
 ```powershell
-# use "query session" as seen above to get the session ID, the run: logoff.exe <ID>
+# to terminate the current logon session
+PS> logoff
+# or, equivalent
+PS> shutdown -l
+
+# to terminate another logon session, use "query session" as seen above to get the session ID, then run: logoff.exe <ID>
 PS> logoff 3
+```
+
+To simply disconnect from **within** a remote (RDP) session, leaving the session on the remote machine open:
+
+```powershell
+PS> tsdiscon
 ```
 
 ### Control Panel, system dialogs, Microsoft Management Console
