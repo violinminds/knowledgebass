@@ -54,3 +54,32 @@ Example: delete all tags with prefix "1.0":
 git push origin -d $(git tag -l "v1.0*") # delete remotely
 git tag -d $(git tag -l "v1.0*") # delete locally
 ```
+
+### Change upstream branch
+
+> https://stackoverflow.com/a/18816842/9156059
+
+```
+git branch --set-upstream-to <remote-name>
+```
+
+This can be useful if you `clone`d a repository, then decided to fork it to create a PR.
+
+For example, you `clone`d a Github repository "user/some-repo" locally, then decided to edit something to create a PR.
+First, create a fork in Github (if you have the [Github command line tool](https://github.com/cli/cli), you can use `gh repo fork --clone --remote --remote-name fork`). This will result in a new repo "yourusername/some-repo".
+Then run the following inside your working copy:
+
+```powershell
+# add new remote (the fork)
+# this will result in 2 remotes, the cloned one and the one added manually
+git remote add fork git@github.com:yourusername/some-repo.git
+git fetch --all --verbose
+git remote -vv
+
+# set upstream branch to the fork
+git branch --set-upstream-to fork/master
+git branch -vv
+
+# (optional) remove previous remote: git remote remove <remotename>
+git remote remove origin # or "upstream" or whatever the name is
+```
