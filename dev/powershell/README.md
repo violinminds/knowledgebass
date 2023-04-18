@@ -2,7 +2,32 @@
 
 Useful notions and examples for Windows PowerShell and PowerShell "Core" (`pwsh`).
 
-## Notions
+## Examples
+
+### `Select-Object` with custom expression
+
+```PowerShell
+Get-Process |
+    Select-Object -First 10 id,
+        processname,
+        @{label = 'ExecutableType'; expression = { [System.IO.Path]::GetExtension($_.Path) } },
+        path |
+    Format-Table
+```
+
+### `switch` with complex expressions
+
+This reverse switch works in almost every language (at least those with c-like syntax).
+
+```powershell
+switch ($true) {
+    (($PSVersionTable.PSEdition -eq 'Core') -and ($PSVersionTable.PSVersion -ge 7)) { Write-Output "it's pwsh >= 7.x" ; break }
+    (($PSVersionTable.PSEdition -eq 'Core') -and ($PSVersionTable.PSVersion -lt 7)) { Write-Output "it's pwsh 6.x" ; break }
+    ($PSVersionTable.PSEdition -eq 'Desktop') { Write-Output "it's winposh" ; break }
+    ($true) { "it's true" }
+    default { Write-Output 'else' }
+}
+```
 
 ### Debug breakpoints
 
@@ -10,6 +35,7 @@ Useful notions and examples for Windows PowerShell and PowerShell "Core" (`pwsh`
 
 The following is a simple setup to trigger a debug session from within a script, like php's `xdebug_break()`, then allow for fiddling with the current powershell session.
 You can even access the session's variables current values.
+This session is more or less equivalent to running a powershell script with the `-noexit` argument, except that you can use this method in the middle of a script.
 
 ```PowerShell
 ### debug-helper.ps1
@@ -46,7 +72,5 @@ You can then use hotkeys to control the debug session (run `?` in a debug sessio
 - `q`: stops the script execution, like an `Exit` statement
 - `?`: display debugging help
 
-## Examples
-
-- [[ext] classes](https://github.com/dahlbyk/posh-git/blob/master/src/PoshGitTypes.ps1)
-- [[ext] Custom Tab completition](https://github.com/dahlbyk/posh-git/blob/master/src/GitTabExpansion.ps1)
+* [[ext] classes](https://github.com/dahlbyk/posh-git/blob/master/src/PoshGitTypes.ps1)
+* [[ext] Custom Tab completition](https://github.com/dahlbyk/posh-git/blob/master/src/GitTabExpansion.ps1)
