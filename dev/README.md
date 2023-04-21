@@ -12,7 +12,7 @@ Concepts that a programmer should have knowledge of.
 
 ## Desktop development
 
-- todo
+- [c/c++/c# knowledge](c)
 
 ## Shell
 
