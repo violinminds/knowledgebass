@@ -12,6 +12,10 @@ Concepts that a programmer should have knowledge of.
 
 ## Desktop development
 
+- todo
+
+## Shell
+
 - [powershell knowledge](powershell)
 
 ## Mobile development
