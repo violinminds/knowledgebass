@@ -12,8 +12,8 @@ La conoscenza del Basso.
 
 ## Topics
 
-- ### [dev](dev)
-- ### [devops](devops)
-- ### [privacy](privacy)
-- ### [sysadmin](sysadmin)
-- ### [software](software)
+- ### [dev](dev/README.md)
+- ### [devops](devops/README.md)
+- ### [privacy](privacy/README.md)
+- ### [sysadmin](sysadmin/README.md)
+- ### [software](software/README.md)
