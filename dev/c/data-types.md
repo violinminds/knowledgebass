@@ -1,10 +1,10 @@
 # C Data Types
 
-> - https://github.com/jaredpar/pinvoke-interop-assistant
-> - https://learn.microsoft.com/en-us/shows/funkyonex/p-invoke-interop-assistant
-> - https://social.msdn.microsoft.com/Forums/en-US/d7cabdc6-e8c9-418f-a1e2-359712cef7ce/data-types-unmanaged-code?forum=csharplanguage
-> - https://www.displayfusion.com/Discussions/View/converting-c-data-types-to-c/?ID=38db6001-45e5-41a3-ab39-8004450204b3
-> - https://www.tangiblesoftwaresolutions.com - proprietary software solutions, with "free edition" version, for transpiling between many languages, also C/C++/C#
+> - <https://github.com/jaredpar/pinvoke-interop-assistant>
+> - <https://learn.microsoft.com/en-us/shows/funkyonex/p-invoke-interop-assistant>
+> - <https://social.msdn.microsoft.com/Forums/en-US/d7cabdc6-e8c9-418f-a1e2-359712cef7ce/data-types-unmanaged-code?forum=csharplanguage>
+> - <https://www.displayfusion.com/Discussions/View/converting-c-data-types-to-c/?ID=38db6001-45e5-41a3-ab39-8004450204b3>
+> - <https://www.tangiblesoftwaresolutions.com> - proprietary software solutions, with "free edition" version, for transpiling between many languages, also C/C++/C#
 
 ## C/C++ Types to C# Types Cheat Sheet
 
