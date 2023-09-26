@@ -16,3 +16,4 @@ La conoscenza del Basso.
 - ### [devops](devops)
 - ### [privacy](privacy)
 - ### [sysadmin](sysadmin)
+- ### [software](software)
