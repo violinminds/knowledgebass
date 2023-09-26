@@ -3,6 +3,7 @@
 SysAdmin notions, tools and procedures.
 
 - [OpenSSH for Windows](win-openssh.md)
+- [Microsoft SQL Server](ms-sqlserver.md)
 - [Starting applications on Windows](win-start.md)
 - [Windows Install/Setup Information](win-setup.md)
 - [Windows Command Line](win-cli.md)
