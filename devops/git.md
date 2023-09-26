@@ -7,6 +7,12 @@
 
 ## Commands
 
+### `git log` with the cutest formatting
+
+```powershell
+git log --pretty=fuller --show-signature
+```
+
 ### Push and track a new local branch to a remote repository
 
 ```powershell
