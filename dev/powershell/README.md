@@ -2,7 +2,71 @@
 
 Useful notions and examples for Windows PowerShell and PowerShell "Core" (`pwsh`).
 
-## Examples
+## Snippets
+
+### Setup allowed web security protocols
+
+This only allows `Tls12` and `Tls13` connections.
+
+It is best to put this command also in your `$PROFILE` file.
+
+> - `Tls 1.0` and `Tls 1.1` are deprecated as of [RFC 8996](https://datatracker.ietf.org/doc/html/rfc8996) id est March 2021
+> - All `SSL` versions are deprecated as of [RFC 7568](https://datatracker.ietf.org/doc/html/rfc7568) id est June 2015
+
+```powershell
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]'Tls12,Tls13'
+# or a bit shorter
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Tls12,Tls13'
+```
+
+### Run a remote (online) script, version 1
+
+NB: the version #2 of this script is preferred; see why below.
+
+> Also see snippets:
+>
+> - [Alternative script download method](#alternative-script-download-method)
+> - [Setup allowed web security protocols](#setup-allowed-web-security-protocols)
+
+```powershell
+# short version one-liner:
+$u = 'https://cdn.jsdelivr.net/gh/aetonsi/misc/scripts/setup-gitbash-environment/main.ps1'; irm $u | iex
+# extended version one-liner:
+$URL = 'https://cdn.jsdelivr.net/gh/aetonsi/misc/scripts/setup-gitbash-environment/main.ps1'; Invoke-RestMethod $URL | Invoke-Expression
+```
+
+### Run a remote (online) script, version 2
+
+This script respects any `#Requires` directive and removes the need for any check about administrator privileges and whatnot.
+
+> Also see snippets:
+>
+> - [Alternative script download method](#alternative-script-download-method)
+> - [Setup allowed web security protocols](#setup-allowed-web-security-protocols)
+
+```powershell
+# short version one-liner:
+$u = 'https://cdn.jsdelivr.net/gh/aetonsi/misc/scripts/setup-gitbash-environment/main.ps1'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Tls12,Tls13'; Set-ExecutionPolicy b -s p -f; irm $u > ($f = "$([IO.Path]::GetTempPath())$([GUID]::NewGuid()).ps1"); & $f; ri $f -f
+# extended version one-liner:
+$URL = 'https://cdn.jsdelivr.net/gh/aetonsi/misc/scripts/setup-gitbash-environment/main.ps1'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Tls12,Tls13'; Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-RestMethod $URL > ($File = "$([System.IO.Path]::GetTempPath())$([GUID]::NewGuid()).ps1"); & $File; Remove-Item $File -Force
+# extended version line by line:
+$URL = 'https://cdn.jsdelivr.net/gh/aetonsi/misc/scripts/setup-gitbash-environment/main.ps1'
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]'Tls12,Tls13'
+Set-ExecutionPolicy Bypass -Scope Process -Force
+Invoke-RestMethod $URL > ($File = "$([System.IO.Path]::GetTempPath())$([GUID]::NewGuid()).ps1")
+& $File
+Remove-Item $File -Force
+```
+
+### Alternative script download method
+
+This replaces `irm`/`Invoke-RestMethod`.
+
+```powershell
+([System.Net.WebClient]::New()).DownloadString($URL)
+# or a bit shorter
+([Net.WebClient]::New()).DownloadString($URL)
+```
 
 ### `Select-Object` with custom expression
 
