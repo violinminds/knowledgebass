@@ -1,6 +1,12 @@
 # Settings for php's Xdebug
 
-## `php.ini`
+## php's binary command line arguments
+
+- `-dxdebug.mode=off`: disables the execution of Xdebug for the current command, eg: `php "-dxdebug.mode=off" -r "echo 'test';"`; note that quoting might be necessary (for example, on Windows' cmd.exe)
+
+## Xdebug settings in `php.ini`
+
+### modern php versions (>5.x)
 
 ```ini
 [Xdebug]
@@ -16,24 +22,29 @@ xdebug.remote_enable = 1
 xdebug.remote_autostart = 1
 ```
 
-### `php.ini` in older php versions (<=5.x)
+### older php versions (<=5.x)
 
 `zend_extension=xdebug` won't work, you have to point to the dll. You have some options:
 
 - use a path relative to the php binary:
+
   ```ini
   zend_extension=./ext/php_xdebug.dll
   ```
+
 - use an absolute path:
+
   ```ini
   zend_extension=c:\php\ext\php_xdebug.dll
   ```
+
 - add the dll folder to the system `PATH` (eg. in powershell `[Environment]::SetEnvironmentVariable("Path", "$env:path;c:\php\ext", "user")`), then just specify the name of the dll:
+
   ```ini
   zend_extension=php_xdebug.dll
   ```
 
-## VS Code's `launch.json`
+## Settings for VS Code's `launch.json`
 
 ```jsonc
 {
