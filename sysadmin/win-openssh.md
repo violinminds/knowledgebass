@@ -1,7 +1,7 @@
 # OpenSSH for Windows
 
-> - https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui
-> - https://github.com/PowerShell/Win32-OpenSSH
+> - <https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse?tabs=gui>
+> - <https://github.com/PowerShell/Win32-OpenSSH>
 
 Setup procedure for using OpenSSH client/server on Windows.
 
@@ -35,7 +35,7 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyCon
 
 # Key based authentication
 
-> https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement
+> <https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement>
 
 ## Generate key for client
 
@@ -98,12 +98,12 @@ If you wish you can add a welcome banner to the server so that you see a custom 
 1. create keys for the client (see above)
    - for authentication, create a key with comment **containing** "git-auth", eg. in powershell `ssh-keygen -C git-auth -f "$env:USERPROFILE\.ssh\git-auth"`
    - for signing, create a key with comment **containing** "git-signing", eg. in powershell `ssh-keygen -C git-signing -f "$env:USERPROFILE\.ssh\git-signing"`
-2. add keys to your profile @ https://github.com/settings/keys (copy-paste both the public keys contents)
+2. add keys to your profile @ <https://github.com/settings/keys> (copy-paste both the public keys contents)
 
 ### Authentication (cloning / pulling / pushing / etc)
 
 Test auth via: `ssh -T git@github.com`, it should print: "Hi _username_! You've successfully authenticated, but GitHub does not provide shell access.".
-If that's not the case and you get the error "git@github.com: Permission denied (publickey).", debug with the `-v` or `-vvv` switches ("verbose"): `ssh -vvvT git@github.com`. See the Troubleshooting section for more help.
+If that's not the case and you get the error `git@github.com: Permission denied (publickey).`, debug with the `-v` or `-vvv` switches ("verbose"): `ssh -vvvT git@github.com`. See the Troubleshooting section for more help.
 
 Now you should be able to clone a repository via: `git clone git@github.com:violinminds/knowledgebass.git` (get link in the repository page on Github by clicking the "<> Code" button and and selecting "SSH" in the clone section).
 
@@ -119,7 +119,7 @@ To configure vscode to use SSH instead of HTTPS, add `"github.gitProtocol": "ssh
 
 Configure git to **always** sign **Github** commits with your ssh key identified by the comment containing "git-signing" (run all commands in powershell):
 
-> OPTIONAL (**not** recommended): if you want, you can use a custom config file **only** for host "git@github.com": `git config --global "includeIf.hasconfig:remote.*.url:git@github.com**/**.path" .github.gitconfig`. If you do so, run the following commands replacing `--global` with `--file $env:USERPROFILE/.github.gitconfig`. PLEASE NOTE: if you do so, commits will be signed **only** after the "git@github.com" remote has been added, so initializing new repositories and immediately committing to them will create non-signed commits!
+> OPTIONAL (**not** recommended): if you want, you can use a custom config file **only** for host "<git@github.com>": `git config --global "includeIf.hasconfig:remote.*.url:git@github.com**/**.path" .github.gitconfig`. If you do so, run the following commands replacing `--global` with `--file $env:USERPROFILE/.github.gitconfig`. PLEASE NOTE: if you do so, commits will be signed **only** after the "<git@github.com>" remote has been added, so initializing new repositories and immediately committing to them will create non-signed commits!
 
 - instruct git to use ssh instead of gpg: `git config --global gpg.format ssh`
 - force signing of all commits: `git config --global commit.gpgsign true`
@@ -134,7 +134,7 @@ You can (and should) verify whether your commits have been correctly signed or n
 
 ##### On Github
 
-Open the repository commits history (`<repo url>/commits`, eg. https://github.com/aetonsi/pwsh__Utils/commits/). If a commit is signed correctly with your registered signing key, you will see a green "Verified" label for the commit:
+Open the repository commits history (`<repo url>/commits`, eg. <https://github.com/aetonsi/pwsh__Utils/commits/>). If a commit is signed correctly with your registered signing key, you will see a green "Verified" label for the commit:
 ![image](https://user-images.githubusercontent.com/18366087/213741833-1ea2a8d5-4987-4df5-a4cd-8912ec49e199.png)
 
 ##### Locally
@@ -205,6 +205,14 @@ git config --global alias.clone-https "!f() { newdir=`"`$(basename `"`$1`")`" ; 
 git clone-https https://git.heroku.com/your-heroku-repo.git
 ```
 
+### Setup SSH Banner
+
+Add/uncomment the `Banner` line in `C:\ProgramData\ssh\sshd_config`:
+
+```openssh-config
+Banner c:\banner_to_show_when_sshing_-T.txt
+```
+
 ## Troubleshooting tips
 
 - verify that git is also loading the Github config file, by running `git config -l --show-origin` in a Github working copy
@@ -212,6 +220,7 @@ git clone-https https://git.heroku.com/your-heroku-repo.git
 - if a repository was already cloned via HTTPS and you want to start working via SSH, change its remote via: `git remote set-url origin git@github.com:violinminds/knowledgebass.git`. To verify the current remotes, run: `git remote -v`
 - if you get an error, eg. "Permission denied (publickey). fatal: Could not read from remote repository.", to debug, you can add the `-v` switch to `core.sshCommand` setting in the git config to be more verbose (use `-vvv` to be even more verbose)
   - a possible problem might be that, for some reason, ssh is not using the agent's keys. In the verbose debug log, ssh reports a list of the keys it tries to use when connecting to an ssh host, which should also include the agent's keys. If the agent keys are missing, see the following Troubleshooting tips. Example of correct debug log:
+
   ```ini
     debug1: Will attempt key: git-auth RSA SHA256:yyyyyyyyyyyyyyyyyyyyyyyyyyyy agent
     debug1: Will attempt key: git-signing RSA SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxx agent
@@ -222,5 +231,6 @@ git clone-https https://git.heroku.com/your-heroku-repo.git
     debug1: Will attempt key: C:\\Users\\username/.ssh/id_ed25519_sk
     debug1: Will attempt key: C:\\Users\\username/.ssh/id_xmss
   ```
+
 - if by debugging with a verbose `core.sshCommand` or simply by trying the authentication with `ssh -vT git@github.com` you see that ssh is not trying the agent's keys, it might be that the agent service is not running. Start it via `sc start ssh-agent` and try again
   - If the agent is running but the problem is still present, it might be that git is not using the system's OpenSSH suite. This might happen if you didn't select "Use external OpenSSH" during git setup. To verify this, you can either set `core.sshCommand` to `where.exe ssh > ~/sshlocation.txt && notepad ~/sshlocation.txt && rm ~/sshlocation.txt` then run a git command again (eg. git clone), or you can to run `which ssh` in git Bash; both are ways to determine which ssh binary git is trying to run. If it's not the OpenSSH binary (located in C:/WINDOWS/System32/OpenSSH), fix your `PATH` environment variable. If git is using its internal ssh (C:\Program Files\Git\usr\bin), reinstall git for windows and select "Use external OpenSSH"
