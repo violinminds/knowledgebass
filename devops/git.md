@@ -41,6 +41,14 @@ git log --branches --not --remotes --oneline
 git log --branches --not --remotes --show-signature
 ```
 
+### Fetch deletion of branches
+
+Deletes the local branches that have been remotely deleted.
+
+```shell
+git fetch --prune
+```
+
 ### Delete all tags except one
 
 Example: delete all tags except "2.2.1":
