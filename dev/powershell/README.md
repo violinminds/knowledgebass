@@ -19,6 +19,22 @@ It is best to put this command also in your `$PROFILE` file.
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]'Tls12,Tls13'
 ```
 
+### List user sessions
+
+From: <https://stackoverflow.com/a/66851552/9156059>
+
+```powershell
+Get-CimInstance -ClassName Win32_LogonSession | Get-CimAssociatedInstance -Association Win32_LoggedOnUser
+```
+
+### List SSH sessions
+
+From: <https://stackoverflow.com/a/66851552/9156059>
+
+```powershell
+Get-CimInstance -ClassName Win32_Process -Filter "Name = 'sshd.exe'" | Get-CimAssociatedInstance -Association Win32_SessionProcess | Get-CimAssociatedInstance -Association Win32_LoggedOnUser | Where-Object {$_.Name -ne 'SYSTEM'}
+```
+
 ### Run a remote (online) script, version 1
 
 NB: the version #2 of this script is preferred; see why below.
