@@ -11,13 +11,11 @@ Concepts that a programmer should have knowledge of.
 
 - [php knowledge](php)
 
-## Desktop development
+## Shell / Scripting / Desktop development
 
 - [c/c++/c# knowledge](c)
-
-## Shell
-
 - [powershell knowledge](powershell)
+- [autohotkey knowledge](ahk)
 
 ## Mobile development
 
