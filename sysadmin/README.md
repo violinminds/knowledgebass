@@ -2,6 +2,7 @@
 
 SysAdmin notions, tools and procedures.
 
+- [Raspberry PI Setup](rpi-setup.md)
 - [OpenSSH for Windows](win-openssh.md)
 - [Microsoft SQL Server](ms-sqlserver.md)
 - [Starting applications on Windows](win-start.md)
