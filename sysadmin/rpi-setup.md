@@ -73,3 +73,23 @@ curl \
     bash - && \
   sudo reboot
 ```
+
+#### 6.1 add HTTP basic auth to TinyPilot
+
+```shell
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-nginx-on-ubuntu-14-04
+sudo sh -c "echo -n 'sammy:' >> /etc/nginx/.htpasswd"
+sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
+cat /etc/nginx/.htpasswd
+```
+
+... in `/etc/nginx/conf.d/tinypilot.conf`:
+
+```config
+server {
+    location / {
+        auth_basic "Restricted Content";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+    }
+}
+```
