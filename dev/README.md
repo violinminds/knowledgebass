@@ -10,6 +10,7 @@ Concepts that a programmer should have knowledge of.
 ## Web development
 
 - [php knowledge](php)
+- [JavaScript knowledge](js/README.md)
 
 ## Shell / Scripting / Desktop development
 
