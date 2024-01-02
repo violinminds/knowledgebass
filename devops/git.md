@@ -7,6 +7,16 @@
 
 ## Commands
 
+### Compact `.git` folder
+
+Reduces the size of the `.git` folder by cleaning up cached unuseful thingies.
+
+```shell
+git maintenance run --auto
+git gc --aggressive --prune=now
+git reflog expire --expire=now --all
+```
+
 ### `git log` with the cutest formatting
 
 ```powershell
