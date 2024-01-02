@@ -2,6 +2,7 @@
 
 SysAdmin notions, tools and procedures.
 
+- [Windows](windows/README.md)
 - [Linux](linux/README.md)
 - [Android](android/README.md)
 - [Raspberry PI Setup](rpi-setup.md)
