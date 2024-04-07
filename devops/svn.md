@@ -20,9 +20,9 @@ This can be used, for example, to fix a broken repo.
 
 In the example below, `r385` of repo `my-repo` will be used.
 
-> <https://superuser.com/a/315138>
-> <https://svnbook.red-bean.com/en/1.7/svn.ref.svnadmin.html>
-> <https://www.saas-secure.com/svn-hosting/svn-dump-restore.html>
+> - https://superuser.com/a/315138
+> - https://svnbook.red-bean.com/en/1.7/svn.ref.svnadmin.html
+> - https://www.saas-secure.com/svn-hosting/svn-dump-restore.html
 
 #### 1. create new repo
 

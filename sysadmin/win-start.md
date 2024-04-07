@@ -38,7 +38,7 @@ For more information run: `get-help about_Command_Precedence`
 
 > When the [ShellExecuteEx](https://learn.microsoft.com/en-us/windows/desktop/api/Shellapi/nf-shellapi-shellexecuteexa) function is called with the name of an executable file in its _lpFile_ parameter, there are several places where the function looks for the file. We recommend registering your application in the **App Paths** registry subkey. Doing so avoids the need for applications to modify the system PATH environment variable.
 >
-> - The file is sought in the following locations:
+> The file is sought in the following locations:
 >
 > - The current working directory.
 > - The **Windows** directory only (no subdirectories are searched).
