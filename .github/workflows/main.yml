@@ -12,6 +12,10 @@ jobs:
     permissions: { id-token: write, pages: write }
     uses: dmotte/misc/.github/workflows/cicd-with-script.yml@main
     with:
+      # These would be overkill here
+      run-shellcheck: false
+      run-trivy: false
+
       script: >
         MKDOCS_DEPS=mkdocs-material,mkdocs-minify-plugin,pymdown-extensions
         MKDOCS_DOCS_SRC=. MKDOCS_DOCS_DST=mkdocs-docs
