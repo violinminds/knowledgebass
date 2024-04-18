@@ -59,9 +59,9 @@ xdebug.remote_autostart = 1
         // customize
         "max_children": 128,
         "max_data": 512,
-        "max_depth": 6
-      }
-    }
-  ]
+        "max_depth": 6,
+      },
+    },
+  ],
 }
 ```

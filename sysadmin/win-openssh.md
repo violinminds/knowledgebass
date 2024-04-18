@@ -219,6 +219,7 @@ Banner c:\banner_to_show_when_sshing_-T.txt
 - if you get the warning "@ WARNING: UNPROTECTED PRIVATE KEY FILE! @" when trying to use the keys, fix the private key(s) file(s) permissions to allow FULL CONTROL to the current user, `SYSTEM` and the `Administrators` group
 - if a repository was already cloned via HTTPS and you want to start working via SSH, change its remote via: `git remote set-url origin git@github.com:violinminds/knowledgebass.git`. To verify the current remotes, run: `git remote -v`
 - if you get an error, eg. "Permission denied (publickey). fatal: Could not read from remote repository.", to debug, you can add the `-v` switch to `core.sshCommand` setting in the git config to be more verbose (use `-vvv` to be even more verbose)
+
   - a possible problem might be that, for some reason, ssh is not using the agent's keys. In the verbose debug log, ssh reports a list of the keys it tries to use when connecting to an ssh host, which should also include the agent's keys. If the agent keys are missing, see the following Troubleshooting tips. Example of correct debug log:
 
   ```ini

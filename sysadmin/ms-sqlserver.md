@@ -54,11 +54,11 @@ This is a quick guide on how to allow other database management tools (eg. [DBea
 5. **stop** and **start** SQL Server and SQL Server Browser services
 6. connect with these credentials
 
-  ```text
-    host 127.0.0.1\SQLEXPRESS
-    port 1433
-    user sa
-    pass <selected password>
-  ```
+```text
+  host 127.0.0.1\SQLEXPRESS
+  port 1433
+  user sa
+  pass <selected password>
+```
 
 Please note: server name `127.0.0.1\SQLEXPRESS` should be what you see in SQL Server Management Studio's object explorer and will probably vary depending on the server version.

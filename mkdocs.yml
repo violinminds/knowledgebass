@@ -1,0 +1,73 @@
+---
+strict: true
+docs_dir: !ENV MKDOCS_DOCS_DST
+site_dir: !ENV MKDOCS_SITE_DIR
+
+# Inspired by https://github.com/dmotte/misc/blob/main/mkdocs.yml
+
+site_name: KnowledgeBass
+site_url: https://violinminds.github.io/knowledgebass/
+site_author: violinminds
+site_description: Errare humanvm est, perseverare is like breadcrumbs on top of pasta.
+
+repo_name: violinminds/knowledgebass
+repo_url: https://github.com/violinminds/knowledgebass
+edit_uri: blob/main
+
+theme:
+  name: material
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+    - content.tooltips
+    - navigation.tabs
+    - navigation.indexes # Provides same behavior as the "mkdocs-section-index" plugin
+    - navigation.expand
+    - navigation.footer
+    - navigation.top
+    - search.share
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+  # favicon: null
+  icon: { logo: material/music-clef-bass }
+
+plugins:
+  - minify: { minify_html: true }
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/violinminds
+
+markdown_extensions:
+  - pymdownx.magiclink
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      auto_title: true
+      auto_title_map: { Text Only: "" }
+      linenums: true
+      anchor_linenums: true
+  - pymdownx.superfences
