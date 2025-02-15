@@ -27,9 +27,7 @@ To fix it, add to your `~/.gitconfig` an exception for the scoop folder:
 ```gitconfig
 [includeIf "gitdir:C:/Users/*/scoop/**"]
   path = ~/scoop.gitconfig
-```
-> ⚠️ NB: `gitdir` must end with a trailing slash (`/`).
-> 
+``` 
 > ⚠️ NB: `gitdir` is case sensitive, even on Windows.
 >
 > ⚠️ NB: `gitdir` can contain `*` to allow the use of scoop for every user on the machine.
