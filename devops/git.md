@@ -111,3 +111,13 @@ git branch -vv
 # (optional) remove previous remote: git remote remove <remotename>
 git remote remove origin # or "upstream" or whatever the name is
 ```
+
+### Fix `git push` "broken pipe" error (over SSH)
+
+> https://community.atlassian.com/forums/Bitbucket-questions/git-push-over-SSH-fails-with-quot-broken-pipe-quot-error/qaq-p/855243
+
+Add to ssh configuration file (usually `~\.ssh\config`):
+
+```ini
+IPQoS=throughput
+```
