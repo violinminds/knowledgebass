@@ -13,7 +13,11 @@ Reduces the size of the `.git` folder by cleaning up cached unuseful thingies.
 
 ```shell
 git maintenance run --auto
-git gc --aggressive --prune=now
+
+git repack -a -d -f --depth=250 --window=250
+# or, deprecated: git gc --aggressive --prune=now
+# (see https://stackoverflow.com/a/28721047 / https://stackoverflow.com/a/5613380)
+
 git reflog expire --expire=now --all
 ```
 
