@@ -121,3 +121,9 @@ Add to ssh configuration file (usually `~\.ssh\config`):
 ```ini
 IPQoS=throughput
 ```
+
+# GitHub
+
+### See your own GitHub repositories' size
+
+Just go to <https://github.com/settings/repositories>.
